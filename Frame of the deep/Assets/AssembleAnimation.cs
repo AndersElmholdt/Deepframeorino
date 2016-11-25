@@ -20,6 +20,7 @@ public class AssembleAnimation : MonoBehaviour {
     public Vector3 initialTargetPosition;
     public Quaternion targetRotation; //Optional of course
     public float smoothFactor = 2;
+    float secondsItStaysAssembled = 45.0f;
     float initPosition;
 
     void Update () {
@@ -45,9 +46,11 @@ public class AssembleAnimation : MonoBehaviour {
     while (true)
         {
             targetPosition = startPosition;
+ //           print("state 0: objects hidden.");
             yield return new WaitForSeconds(5.0f);
+//            print("state 1: objects assembling and showing up. " + secondsItStaysAssembled + " seconds until it hides objects again.");
             targetPosition = initialTargetPosition;
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(secondsItStaysAssembled);
 
         }
 
