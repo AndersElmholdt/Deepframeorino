@@ -23,6 +23,7 @@ Properties {
 Subshader {
 	Tags { "WaterMode"="Refractive" "RenderType"="Opaque" }
 	Pass {
+	//blend SrcAlpha OneMinusSrcAlpha
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
@@ -139,6 +140,9 @@ half4 frag( v2f i ) : SV_Target
 	#if defined(WATER_REFRACTIVE)
 	half fresnel = UNITY_SAMPLE_1CHANNEL( _Fresnel, float2(fresnelFac,fresnelFac) );
 	color = lerp( refr, refl, fresnel );
+	//color = color * (0.0, 1.0, 0.0, 1.0);
+	//color = lerp(color, water.rgb, 0.5);
+	//color.a = lerp(0, 1, fresnel) * 4;
 	#endif
 	
 	#if defined(WATER_REFLECTIVE)
@@ -146,7 +150,7 @@ half4 frag( v2f i ) : SV_Target
 	color.rgb = lerp( water.rgb, refl.rgb, water.a );
 	color.a = refl.a * water.a;
 	//color = (0,0,0,0);
-	color = refl;
+	//color = refl;
 	//color.a = 0;
 	#endif
 	
